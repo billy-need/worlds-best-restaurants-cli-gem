@@ -1,28 +1,28 @@
-class WorldsBestRestaurants::CLI
+class top100movies::CLI
 
   def call
-    WorldsBestRestaurants::Scraper.new.make_restaurants
-    puts "Welcome to the 50 Best Restaurants in the World"
+    top100movies::Scraper.new.make_movies
+    puts "Hello welcome to the top 100 movies in the history of film"
     start
   end
 
   def start
     puts ""
-    puts "What number restaurants would you like to see? 1-10, 11-20, 21-30, 31-40 or 41-50?"
+    puts "What number movies would you like to see? 1-10, 11-20, 21-30, 31-40, 41-50, 51-60, 61-70, 71-80, 81-90, 91-100?"
     input = gets.strip.to_i
 
-    print_restaurants(input)
+    print_movies(input)
 
     puts ""
-    puts "What restaurant would you like more information on?"
+    puts "What movie would you like more information on?"
     input = gets.strip
 
-    restaurant = WorldsBestRestaurants::Restaurant.find(input.to_i)
+    restaurant = top100movies::Movies.find(input.to_i)
 
-    print_restaurant(restaurant)
+    print_movies(movies)
 
     puts ""
-    puts "Would you like to see another restaurant? Enter Y or N"
+    puts "Would you like to see another film? Enter Y or N"
 
     input = gets.strip.downcase
     if input == "y"
@@ -38,36 +38,27 @@ class WorldsBestRestaurants::CLI
     end
   end
 
-  def print_restaurant(restaurant)
+  def print_Movie(Movie)
     puts ""
-    puts "----------- #{restaurant.name} - #{restaurant.position} -----------"
+    puts "----------- #{movie.name} - #{movie.position} -----------"
     puts ""
-    puts "#{restaurant.intro_quote}"
-    puts "Location:           #{restaurant.location}"
-    puts "Head Chef:          #{restaurant.head_chef}"
-    puts "Contact:            #{restaurant.contact}"
-    puts "Phone:             #{restaurant.phone}"
-    puts "Website:            #{restaurant.website_url}"
+    puts "#{movie.intro_quote}"
+    puts "Stars:              #{movie.star}"
+    puts "Rating:"            #{movie.rating}
 
     puts ""
     puts "---------------Description--------------"
     puts ""
-    puts "#{restaurant.description}"
-    puts ""
-
-    puts ""
-    puts "---------------About the Food--------------"
-    puts ""
-    puts "#{restaurant.food_style}"
+    puts "#{movie.description}"
     puts ""
   end
 
-  def print_restaurants(from_number)
+  def print_movie(from_number)
     puts ""
-    puts "---------- Restaurants #{from_number} - #{from_number+9} ----------"
+    puts "---------- movies #{from_number} - #{from_number+9} ----------"
     puts ""
-    WorldsBestRestaurants::Restaurant.all[from_number-1, 10].each.with_index(from_number) do |restaurant, index|
-      puts "#{index}. #{restaurant.name} - #{restaurant.location}"
+    top_100_movies::Movies.all[from_number-1, 10].each.with_index(from_number) do |movies, index|
+      puts "#{index}. #{movie.name} - #{movie.rating}"
     end
   end
 
